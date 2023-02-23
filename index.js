@@ -11,11 +11,11 @@ const shortID = require("shortid");
 const app = express();
 const port = process.env.PORT || 3000;
 
+mongoose.set("strictQuery", false);
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-
 
 const urlSchema = new mongoose.Schema({
   originalURL: String,
@@ -84,7 +84,6 @@ app.get("/api/shorturl/:shortURL?", async (req, res) => {
     res.status(500).json("Server error..");
   }
 });
-
 
 app.listen(port, function () {
   console.log(`Listening on port ${port}`);
